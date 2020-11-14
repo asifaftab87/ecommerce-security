@@ -42,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             	.sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS )
 			.and()
 				.authorizeRequests().antMatchers("/authenticate").permitAll()
-	/*		.and()
-				.authorizeRequests().antMatchers("/employees").permitAll()
 			.and()
+				.authorizeRequests().antMatchers("/registration").permitAll()
+	/*		.and()
 				.authorizeRequests().antMatchers("/employees/delete/**").permitAll()
 			.and()
 				.authorizeRequests().antMatchers("/employees/add").permitAll() */
@@ -70,4 +70,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public DozerBeanMapper dozerBeanMapper() {
 		return new DozerBeanMapper();
 	}
+	
 }

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.dozer.DozerBeanMapper;
+import org.la.ecom.mysql.api.dto.UserDTO;
 import org.la.ecom.secure.model.Role;
 import org.la.ecom.secure.model.User;
-import org.la.ecom.secure.model.dto.UserDTO;
 import org.la.ecom.secure.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

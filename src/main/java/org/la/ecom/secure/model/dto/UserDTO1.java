@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-public class UserDTO implements Serializable{
+public class UserDTO1 implements Serializable{
 
 	private static final long serialVersionUID = 4708793901475556163L;
 	
@@ -20,9 +20,9 @@ public class UserDTO implements Serializable{
 	private int status;
 	private String passwordGame;
 	private String passwordUser;
-	private Set<RoleDTO> roles;
+	private Set<RoleDTO1> roles;
 	
-	public UserDTO() {}
+	public UserDTO1() {}
 	
 	public int getId() {
 		return id;
@@ -102,10 +102,10 @@ public class UserDTO implements Serializable{
 		this.passwordUser = passwordUser;
 	}
 
-	public Set<RoleDTO> getRoles() {
+	public Set<RoleDTO1> getRoles() {
 		return roles;
 	}
-	public void setRoles(Set<RoleDTO> roles) {
+	public void setRoles(Set<RoleDTO1> roles) {
 		this.roles = roles;
 	}
 

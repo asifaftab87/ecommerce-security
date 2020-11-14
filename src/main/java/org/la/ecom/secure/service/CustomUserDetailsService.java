@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.dozer.DozerBeanMapper;
+import org.la.ecom.mysql.api.dto.UserDTO;
+import org.la.ecom.secure.exceptions.AlreadyExistsException;
 import org.la.ecom.secure.model.CustomUserDetails;
 import org.la.ecom.secure.model.Role;
 import org.la.ecom.secure.model.User;
@@ -18,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
@@ -33,6 +37,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	private DozerBeanMapper dozerBeanMapper;
 
     @Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -77,4 +83,21 @@ public class CustomUserDetailsService implements UserDetailsService{
 		return null;
 	}
 	
+	public User addUser(UserDTO userDTO, String roleName) {
+		
+		String email = userDTO.getEmail();
+		
+		Optional<User> userOptional = userRepository.findByEmail(email);
+		
+		userOptional.ifPresent(user -> {throw new AlreadyExistsException("Email already exist");});
+		
+		User user = dozerBeanMapper.map(userDTO, User.class);
+		
+		user.setPassword(userDTO.getPasswordUser());
+		
+		user = addUser(user, roleName);
+		
+		return user;
+    }
+
 }

@@ -1,7 +1,11 @@
-package org.la.ecom.secure.model;
+package org.la.ecom.secure.model.dto;
 
-public class AuthenticationRequest {
+import java.io.Serializable;
 
+public class AuthenticationRequest implements Serializable{
+
+	private static final long serialVersionUID = 8992433360750434038L;
+	
 	private String username;
 	private String password;
 	
@@ -23,6 +27,5 @@ public class AuthenticationRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 	
 }

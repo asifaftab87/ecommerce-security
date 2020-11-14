@@ -17,10 +17,26 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<start-class>org.la.ecom.secure.EcommerceSecurityApplication</start-class>
 	</properties>
 
 	<dependencies>
 
+		<dependency>
+			<groupId>org.la.ecom.notification.api</groupId>
+			<artifactId>ecommerce-notification-api</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.la.ecom.document.api</groupId>
+			<artifactId>ecommerce-document-api</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.la.ecom.mysql.api</groupId>
+			<artifactId>ecommerce-mysql-api</artifactId>
+			<version>0.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

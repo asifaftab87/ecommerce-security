@@ -53,6 +53,9 @@ public class User implements Serializable{
 	@Column(name="status")
 	private int status;
 	
+	@Column(name="mail_sent_status")
+	private int mailSentStatus;
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -148,6 +151,14 @@ public class User implements Serializable{
 		this.status = status;
 	}
 
+	public int getMailSentStatus() {
+		return mailSentStatus;
+	}
+
+	public void setMailSentStatus(int mailSentStatus) {
+		this.mailSentStatus = mailSentStatus;
+	}
+	
 	@Override
 	public String toString() {
 		return id+ "  " +firstName+"  "+email;

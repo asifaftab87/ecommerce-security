@@ -66,6 +66,20 @@ public class CustomUserDetailsService implements UserDetailsService{
         return userRepository.save(user);
     }
 	
+	public User addUser(User user) {
+        
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+     
+		Optional<Role> optionalRole = user.getRoles().stream().filter(role -> role.getRole().contains("ROLE")).findFirst();
+		
+		if(optionalRole.isPresent()) {
+			Role role = optionalRole.get();
+			role = roleRepository.findByRole(role.getRole());
+			user.setRoles(new HashSet<>(Arrays.asList(role)));
+		}
+        return userRepository.save(user);
+    }
+	
 	public User saveUser(User user, String roleName) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
@@ -96,6 +110,23 @@ public class CustomUserDetailsService implements UserDetailsService{
 		user.setPassword(userDTO.getPasswordUser());
 		
 		user = addUser(user, roleName);
+		
+		return user;
+    }
+	
+	public User addUser(UserDTO userDTO) {
+		
+		String email = userDTO.getEmail();
+		
+		Optional<User> userOptional = userRepository.findByEmail(email);
+		
+		userOptional.ifPresent(user -> {throw new AlreadyExistsException("Email already exist");});
+		
+		User user = dozerBeanMapper.map(userDTO, User.class);
+		user.setMailSentStatus(1);
+		user.setPassword(userDTO.getPasswordUser());
+		
+		user = addUser(user);
 		
 		return user;
     }

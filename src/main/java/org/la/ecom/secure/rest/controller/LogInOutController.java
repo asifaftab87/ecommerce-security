@@ -1,8 +1,9 @@
 package org.la.ecom.secure.rest.controller;
 
+import org.dozer.DozerBeanMapper;
 import org.la.ecom.mysql.api.dto.UserDTO;
-import org.la.ecom.secure.client.service.ApiServiceSecurity;
 import org.la.ecom.secure.jwt.JwtUtil;
+import org.la.ecom.secure.model.User;
 import org.la.ecom.secure.model.dto.AuthenticationRequest;
 import org.la.ecom.secure.model.dto.AuthenticationResponse;
 import org.la.ecom.secure.service.CustomUserDetailsService;
@@ -30,10 +31,10 @@ public class LogInOutController {
 	private CustomUserDetailsService userDetailsService;
 	
 	@Autowired
-	private ApiServiceSecurity apiService;
+	private JwtUtil jwtTokenUtil;
 	
 	@Autowired
-	private JwtUtil jwtTokenUtil;
+	private DozerBeanMapper mapper;
 	
 	private final Logger log = LoggerFactory.getLogger(LogInOutController.class);
 			
@@ -68,10 +69,15 @@ public class LogInOutController {
 	}
 	
 	@PostMapping(value = "/registration")
-	public void registration(@RequestBody UserDTO userdto) {
+	public UserDTO registration(@RequestBody UserDTO userdto) {
 		
-		userDetailsService.addUser(userdto, "ROLE_USER");
-		log.info("registration without security");
+		
+		User user = userDetailsService.addUser(userdto);
+		
+		userdto = mapper.map(user, UserDTO.class);
+		
+		return userdto;
+		
 	}
 	
 }

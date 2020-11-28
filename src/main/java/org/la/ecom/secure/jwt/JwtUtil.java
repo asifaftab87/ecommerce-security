@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class JwtUtil {
 
 	private String SECRET_KEY = "c754e7ae9434d31e79cf14f62fdd0ea613d3a42ce38a5034d8490d73b5c50d52e027ea8ffa024402269f49af0d78f4ed402e9e78d4c1f9e82572d56103751934";
 	
+	private final Logger log = LoggerFactory.getLogger(JwtUtil.class);
+			
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}
@@ -40,7 +44,7 @@ public class JwtUtil {
 	
 	public String generateToken(UserDetails userDetails) {
 		
-		System.out.println("-------------authorities: "+userDetails.getAuthorities());
+		log.info("-------------authorities: "+userDetails.getAuthorities());
 		return createToken(userDetails);
 	}
 	
